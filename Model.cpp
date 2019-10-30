@@ -1,6 +1,8 @@
 #include <graphics.h>
 #include "math.h"
 #include "Model.h"
+#include<stdio.h>
+#include <conio.h>
 
 u16    px = 100;
 u16    py = 100;            //飞行物位置
@@ -59,38 +61,60 @@ void pos_change(void)
 	py += vy * t;
 }
 
-//根据输入改变加速度
-void F_input(void)
+//输入模式选择
+int choose_input(void)
 {
-	if (MouseHit())
+	int ch1 = 0;
+	int ch2 = 0;
+	char s[] = "press M start mouse contral ";
+	outtextxy(240, 200, s);
+	
+	while (1)
 	{
-		MOUSEMSG m = GetMouseMsg();
-		switch (m.uMsg)
+		ch1 = _getch();
+		if (ch1 == 77 || ch1 == 109)
 		{
-		case WM_LBUTTONDOWN://左键按下
+			clearrectangle(230,250,300,250);
+			return 1;
+		}
+	}
+}
 
-			if      ((m.x > 160) && (m.x < 480) && (m.y < 240) && (m.y>0 ) )
+//控制模块
+void contral_input(int flag)
+{
+	if (flag == 1)
+	{
+		if (MouseHit())
+		{
+			MOUSEMSG m = GetMouseMsg();
+			switch (m.uMsg)
 			{
-				vy -= 1;
+			case WM_LBUTTONDOWN://左键按下触发
+
+				if ((m.x > 160) && (m.x < 480) && (m.y < 240) && (m.y > 0))
+				{
+					vy -= 1;
+				}
+				if ((m.x > 160) && (m.x < 480) && (m.y > 240) && (m.y < 480))
+				{
+					vy += 1;
+				}
+				if ((m.x <= 640) && (m.x >= 480) && (m.y <= 480) && (m.y >= 0))
+				{
+					vx += 1;
+				}
+				if ((m.x <= 160) && (m.x >= 0) && (m.y <= 480) && (m.y >= 0))
+				{
+					vx -= 1;
+				}
+				break;
 			}
-			if ((m.x > 160) && (m.x < 480) && (m.y > 240) && (m.y < 480))
-			{
-				vy += 1;
-			}
-		    if ((m.x <= 640) && (m.x >= 480) && (m.y <= 480) && (m.y >= 0))
-			{
-				vx += 1;
-			}
-			if ((m.x <= 160) && (m.x >= 0) && (m.y <= 480) && (m.y >= 0))
-			{
-				vx -= 1;
-			}
-			else
-			{
-				;
-			}
-			break;
-		}	
-		FlushMouseMsgBuffer();
+			FlushMouseMsgBuffer();
+		}
+	}
+	else if (flag == 2)
+	{
+
 	}
 }

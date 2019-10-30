@@ -21,17 +21,18 @@ extern int     t   ;             //显示更新时间(ms)
 int main()
 {
 	char s[25] = {0};
+	int  mod_flag = 0;
 	//********** 初始化图形窗口**********
 	initgraph(640, 480);     //初始化面板
 	setcolor(WHITE	);
 	line(160,0,160,480);
 	line(480,0,480,480);
 	line(160,240,480,240);
-
+	mod_flag = choose_input();
 	//***********************************
 	while(1)
 	{
-		F_input();
+		contral_input(mod_flag);
 		update_speed();    //更新速度
 		pos_change();      //位置改变
 		show_pos();        //位置显示刷新
