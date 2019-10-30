@@ -4,38 +4,29 @@
 
 u16    px = 100;
 u16    py = 100;            //飞行物位置
-u16    vx = 0;              //速度横分量
-u16    vy = 0;              //速度纵分量
-u16    g = 6;              //重力加速度
-u16    ax = 0;              //水平加速度
-u16    ay = g;              //垂直加速度
-u16    t = 2;              //显示更新时间(s)
+int    vx = 0;              //速度横分量
+int    vy = 1;              //速度纵分量
+int    g = 0;              //重力加速度
+int    ax = 0;              //水平阻力
+int    ay = 0;              //垂直阻力
+int    t = 2;              //显示更新时间(s)
+u16    radius = 10;
 
-//显示飞行物位置
+//显示飞行物位置,判断触边界
 void show_pos(void)
 {
-	if ((px >= 30) && (py >= 30) && (px <= 610) && (py <= 450))
+	
+    if(( py<10 ) || ( py>470 )) //碰到上下边界
 	{
-		;
+		vy = 0;
 	}
-	else if (px < 30)
+    if ((px < 10) || (px > 630)) //碰到左右边界
 	{
-		px = 30;
+		vx = 0;
 	}
-	else if (px > 610)
-	{
-		px = 610;
-	}
-	else if (py < 30)
-	{
-		py = 30;
-	}
-	else if (py > 450)
-	{
-		px = 450;
-	}
+	
 	setcolor(GREEN);
-	circle(px, py, 30);
+	circle(px, py, radius);      //刷新显示
 
 
 }
@@ -43,45 +34,63 @@ void show_pos(void)
 void pos_erase(void)
 {
 	setcolor(BLACK);
-	circle(px, py, 30);
+	circle(px, py, radius);
 }
 
-//更新vx速度
+//更新速度，如果超出5像素/帧则停止
 void update_speed(void)
 {
-	vx = vx + ax * t;
-	vy = vy + ay * t;
-
+	if ( vy>= -5 && vx>= -5 && vx <= 5  && vy <= 5) 
+	{
+		vx = vx - ax * t;
+		vy = vy - ay * t;
+	}
+	else
+	{
+		vx = 0;
+		vy = 0;
+	}
 }
 
-//按加速度更新位置坐标
+//按速度更新位置坐标
 void pos_change(void)
 {
-	px += ax * t;
-	py += ay * t;
+	px += vx * t;
+	py += vy * t;
 }
 
 //根据输入改变加速度
 void F_input(void)
 {
-	MOUSEMSG m = GetMouseMsg();
-	if ((m.x > 160) && (m.x < 480) && (m.y < 240) && (m.y > 0))
+	if (MouseHit())
 	{
-		ax += -10;
-	}
-	else if ((m.x > 160) && (m.x < 480) && (m.y >= 240) && (m.y <= 480))
-	{
-		ax += 10;
-	}
-	else if ((m.x <= 160) && (m.x >= 0) && (m.y <= 480))
-	{
-		ay += -10;
-	}
-	else if ((m.x <= 160) && (m.x >= 0) && (m.y <= 480))
-	{
-		ay += 10;
-	}
-	else
-		;
+		MOUSEMSG m = GetMouseMsg();
+		switch (m.uMsg)
+		{
+		case WM_LBUTTONDOWN://左键按下
 
+			if      ((m.x > 160) && (m.x < 480) && (m.y < 240) && (m.y>0 ) )
+			{
+				vy -= 1;
+			}
+			if ((m.x > 160) && (m.x < 480) && (m.y > 240) && (m.y < 480))
+			{
+				vy += 1;
+			}
+		    if ((m.x <= 640) && (m.x >= 480) && (m.y <= 480) && (m.y >= 0))
+			{
+				vx += 1;
+			}
+			if ((m.x <= 160) && (m.x >= 0) && (m.y <= 480) && (m.y >= 0))
+			{
+				vx -= 1;
+			}
+			else
+			{
+				;
+			}
+			break;
+		}	
+		FlushMouseMsgBuffer();
+	}
 }
