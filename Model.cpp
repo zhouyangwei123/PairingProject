@@ -1,17 +1,18 @@
 #include <graphics.h>
 #include "math.h"
+//æµ‹è¯•1
 #include "Model.h"
 
 u16      px = 100;
-u16      py = 100;            //·ÉĞĞÎïÎ»ÖÃ
-float    vx = 0;              //ËÙ¶Èºá·ÖÁ¿
-float    vy = 0;              //ËÙ¶È×İ·ÖÁ¿
-float    g = 6.5;             //ÖØÁ¦¼ÓËÙ¶È
-float    ax = 0;              //Ë®Æ½¼ÓËÙ¶È
-float    ay = g;              //´¹Ö±¼ÓËÙ¶È
-u16      t = 2;            //ÏÔÊ¾¸üĞÂÊ±¼ä(s)
+u16      py = 100;            //é£è¡Œç‰©ä½ç½®
+float    vx = 0;              //é€Ÿåº¦æ¨ªåˆ†é‡
+float    vy = 0;              //é€Ÿåº¦çºµåˆ†é‡
+float    g = 6.5;             //é‡åŠ›åŠ é€Ÿåº¦
+float    ax = 0;              //æ°´å¹³åŠ é€Ÿåº¦
+float    ay = g;              //å‚ç›´åŠ é€Ÿåº¦
+u16      t = 2;            //æ˜¾ç¤ºæ›´æ–°æ—¶é—´(s)
 
-//ÏÔÊ¾·ÉĞĞÎïÎ»ÖÃ
+//æ˜¾ç¤ºé£è¡Œç‰©ä½ç½®
 void show_pos(void)
 {
 	setcolor(GREEN);
@@ -21,7 +22,7 @@ void show_pos(void)
 	circle(px, py, 30);
 }
 
-//¸üĞÂvxËÙ¶È
+//æ›´æ–°vxé€Ÿåº¦
 void update_speed(void)
 {
 	vx = vx + ax * t;
