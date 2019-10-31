@@ -24,20 +24,27 @@ int main()
 	int  mod_flag = 0;
 	//********** 初始化图形窗口**********
 	initgraph(640, 480);     //初始化面板
-	setcolor(WHITE	);
+	setcolor(WHITE);
 	line(160,0,160,480);
 	line(480,0,480,480);
 	line(160,240,480,240);
+	rectangle(100,280,150,330);
+	rectangle(30,350,80,400);
+	rectangle(170,350,220,400);
+	rectangle(100,420,150,470);
+
 	mod_flag = choose_input();
 	//***********************************
 	while(1)
 	{
+		
 		contral_input(mod_flag);
 		update_speed();    //更新速度
-		pos_change();      //位置改变
+		change_pos();      //位置改变
 		show_pos();        //位置显示刷新
-		Sleep(10);
-		pos_erase();
+		Sleep(2);
+		erase_pos();
+		draw_board();
 
 	}
 

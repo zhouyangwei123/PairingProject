@@ -7,11 +7,11 @@
 u16    px = 100;
 u16    py = 100;            //飞行物位置
 int    vx = 0;              //速度横分量
-int    vy = 1;              //速度纵分量
-int    g = 0;              //重力加速度
-int    ax = 0;              //水平阻力
-int    ay = 0;              //垂直阻力
-int    t = 2;              //显示更新时间(s)
+int    vy = 0;              //速度纵分量
+int     g = 0;              //重力加速度
+int    speed_val = 1;             //单次操作速度改变
+double  k = 0.000001;              //阻力系数
+int    t = 1;              //显示更新时间(ms)
 u16    radius = 10;
 
 //显示飞行物位置,判断触边界
@@ -33,7 +33,7 @@ void show_pos(void)
 
 }
 //擦除飞行物
-void pos_erase(void)
+void erase_pos(void)
 {
 	setcolor(BLACK);
 	circle(px, py, radius);
@@ -42,20 +42,51 @@ void pos_erase(void)
 //更新速度，如果超出5像素/帧则停止
 void update_speed(void)
 {
-	if ( vy>= -5 && vx>= -5 && vx <= 5  && vy <= 5) 
+	if (vy >= -10 && vx >= -10 && vx <= 10 && vy <= 10)
 	{
-		vx = vx - ax * t;
-		vy = vy - ay * t;
+
+		/*
+		if (vx >= 0)
+		{
+			vx -= vx * k;
+		}
+		else if (vx < 0)
+		{
+			vx += vx * k;
+		}
+		if (vy >= 0)
+		{
+			vy -= vy * k;
+		}
+		else if (vy < 0)
+		{
+			vy += vy * k;
+		}
+		*/
+
 	}
-	else
+	else if(vx <= -10)
+	
 	{
-		vx = 0;
-		vy = 0;
+		vx = -10;
+		if (vy <= -10)
+			vy = -10;
+		else if (vy >= 10)
+			vy = 10;
 	}
+	else if (vy <= -10)
+	{
+		vy = -10;
+		if (vx <= -10)
+			vx = -10;
+		else if (vx >= 10)
+			vx = 10;
+	}
+
 }
 
 //按速度更新位置坐标
-void pos_change(void)
+void change_pos(void)
 {
 	px += vx * t;
 	py += vy * t;
@@ -66,16 +97,23 @@ int choose_input(void)
 {
 	int ch1 = 0;
 	int ch2 = 0;
-	char s[] = "press M start mouse contral ";
-	outtextxy(240, 200, s);
+	char s1[] = "press M choose mouse contral ";
+	char s2[] = "press K choose keyboard contral";
+	outtextxy(240, 200, s1);
+	outtextxy(230, 260, s2);
 	
 	while (1)
 	{
 		ch1 = _getch();
-		if (ch1 == 77 || ch1 == 109)
+		if (ch1 == 77 || ch1 == 109)    //if input M or m
 		{
 			clearrectangle(230,250,300,250);
 			return 1;
+		}
+		else if(ch1 == 75|| ch1 == 107 ) //if input K or k
+		{
+			clearrectangle(230, 250, 300, 250);
+			return 2;
 		}
 	}
 }
@@ -92,21 +130,21 @@ void contral_input(int flag)
 			{
 			case WM_LBUTTONDOWN://左键按下触发
 
-				if ((m.x > 160) && (m.x < 480) && (m.y < 240) && (m.y > 0))
+				if ((m.x > 100) && (m.x < 150) && (m.y < 330) && (m.y > 280))    //↑
 				{
-					vy -= 1;
+					vy -= speed_val;
 				}
-				if ((m.x > 160) && (m.x < 480) && (m.y > 240) && (m.y < 480))
+				if ((m.x > 100) && (m.x < 150) && (m.y > 440) && (m.y < 470))  //↓
 				{
-					vy += 1;
+					vy += speed_val;
 				}
-				if ((m.x <= 640) && (m.x >= 480) && (m.y <= 480) && (m.y >= 0))
+				if ((m.x <= 220) && (m.x >= 170) && (m.y <= 400) && (m.y >= 350))//→
 				{
-					vx += 1;
+					vx += speed_val;
 				}
-				if ((m.x <= 160) && (m.x >= 0) && (m.y <= 480) && (m.y >= 0))
+				if ((m.x <= 80) && (m.x >= 30) && (m.y <= 420) && (m.y >= 350))  //←
 				{
-					vx -= 1;
+					vx -= speed_val;
 				}
 				break;
 			}
@@ -115,6 +153,24 @@ void contral_input(int flag)
 	}
 	else if (flag == 2)
 	{
-
+		if (_kbhit())
+		{
+			switch (_getch())
+			{
+			case 119: vy -= speed_val; break;
+			case 115: vy += speed_val; break;
+			case 97: vx -= speed_val; break;
+			case 100: vx += speed_val; break;
+			}
+		}
 	}
+}
+
+void draw_board(void)
+{line(160, 0, 160, 480);
+	line(480, 0, 480, 480);
+	line(160, 240, 480, 240);	rectangle(100, 280, 150, 330);
+	rectangle(30, 350, 80, 400);
+	rectangle(170, 350, 220, 400);
+	rectangle(100, 420, 150, 470);
 }
