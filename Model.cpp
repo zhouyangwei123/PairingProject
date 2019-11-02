@@ -4,8 +4,8 @@
 #include<stdio.h>
 #include <conio.h>
 
-u16    px = 100;
-u16    py = 100;            //飞行物位置
+u16    px = 30;
+u16    py = 30;            //飞行物位置
 int    vx = 0;              //速度横分量
 int    vy = 0;              //速度纵分量
 int     g = 0;              //重力加速度
@@ -13,6 +13,7 @@ int    speed_val = 1;             //单次操作速度改变
 double  k = 0.000001;              //阻力系数
 int    t = 1;              //显示更新时间(ms)
 u16    radius = 10;
+IMAGE img;
 
 //显示飞行物位置,判断触边界
 void show_pos(void)
@@ -28,6 +29,7 @@ void show_pos(void)
 	}
 	
 	setcolor(GREEN);
+	putimage(px - 10, py - 10, &img);
 	circle(px, py, radius);      //刷新显示
 
 
@@ -37,6 +39,7 @@ void erase_pos(void)
 {
 	setcolor(BLACK);
 	circle(px, py, radius);
+	clearrectangle(px,py,px+10,py+10);
 }
 
 //更新速度，如果超出5像素/帧则停止
@@ -167,7 +170,8 @@ void contral_input(int flag)
 }
 
 void draw_board(void)
-{line(160, 0, 160, 480);
+{
+	line(160, 0, 160, 480);
 	line(480, 0, 480, 480);
 	line(160, 240, 480, 240);	rectangle(100, 280, 150, 330);
 	rectangle(30, 350, 80, 400);

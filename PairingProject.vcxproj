@@ -129,6 +129,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
+    <ClInclude Include="resource1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pairing_Project1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\head.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
