@@ -8,7 +8,7 @@
 #include "resource1.h"
 #include "painting.h"
 
-IMAGE   img;
+IMAGE   img[10];
 char esc = 0;
 int  mod_flag = 0;            //控制模式标志
 
@@ -29,7 +29,7 @@ int main()
 		update_speed();           //更新速度
 		change_pos();             //位置改变
 		show_pos();               //位置显示刷新
-		Sleep(2);
+		Sleep(20);
 		erase_pos();              //擦除旧图片
 		
 

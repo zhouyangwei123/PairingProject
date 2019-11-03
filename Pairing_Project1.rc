@@ -53,6 +53,8 @@ END
 
 IDR_JPG1                jpg                     "img\\head.jpg"
 
+IDR_JPG2                jpg                     "img\\background.jpg"
+
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 

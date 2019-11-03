@@ -12,6 +12,7 @@ extern int     g;             //重力加速度
 extern int     ax;             //水平加速度
 extern int     ay;             //垂直加速度
 extern int     t;             //显示更新时间(ms)
+extern int     radius;        //半径
 
 
 int   choose_input(void);

@@ -137,6 +137,7 @@
     <ResourceCompile Include="Pairing_Project1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="img\background.jpg" />
     <Image Include="img\head.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
