@@ -139,6 +139,7 @@
   <ItemGroup>
     <Image Include="img\background.jpg" />
     <Image Include="img\head.jpg" />
+    <Image Include="img\migong1.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
