@@ -25,10 +25,10 @@ int main()
 	//***********************************
 	while(esc == 0)
 	{
-		contral_input(mod_flag);  //读取鼠标或键盘输入
-		update_speed();           //更新速度
-		change_pos();             //位置改变
-		show_pos();               //位置显示刷新
+		contral_input(mod_flag);  //读取鼠标或键盘输入，改变速度
+		limit_speed();            //检查限速
+		change_pos();             //位置改变坐标
+		draw_pos();               //位置显示刷新
 		Sleep(20);
 		erase_pos();              //擦除旧图片
 		

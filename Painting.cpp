@@ -11,14 +11,17 @@ int graph_X = 640;   //画布长
 int graph_Y = 480;   //画布宽
 int radius = 10;     //碰撞半径
 
+
 //*********************初始化背景板**********************
 void panel_init(void)
 {
 	initgraph(graph_X, graph_Y);     //初始化画布
 	setcolor(WHITE);
 	line(160, 240, 480, 240);
-	loadimage(&img[0], _T("jpg"), MAKEINTRESOURCE(IDR_JPG1));
-	loadimage(&img[1], _T("jpg"), MAKEINTRESOURCE(IDR_JPG2));
+	loadimage(&img[0], _T("jpg"), MAKEINTRESOURCE(IDR_JPG1));   //飞行物 img 0
+	loadimage(&img[1], _T("jpg"), MAKEINTRESOURCE(IDR_JPG2));   //背景图 img 1
+	loadimage(&img[2], _T("jpg"), MAKEINTRESOURCE(IDR_JPG3));   //障碍物 img 2
+	loadimage(&img[3], _T("jpg"), MAKEINTRESOURCE(IDR_JPG4));   //按钮   img 3
 	draw_background();
 }
 //*******************************************************
@@ -26,7 +29,16 @@ void panel_init(void)
 //*********************绘制面板**************************
 void draw_background(void)
 {
+	int i;
+	int px_block = 0;
+	int py_block = 0;
 	putimage(0,0,&img[1]);
+	if(mod_flag == 1)
+		draw_button();
+	for (i = 0; i < 15; i++)
+	{
+		putimage(px_block + i * 50, py_block , &img[2] );
+	}
 }
 //*******************************************************
 
@@ -36,14 +48,22 @@ void draw_button(void)
 
 	setcolor(WHITE);
 	rectangle(100, 280, 150, 330);
+	putimage(100, 280, &img[3]);
+
 	rectangle(30, 350, 80, 400);
+	putimage(30, 350, &img[3]);
+
 	rectangle(170, 350, 220, 400);
+	putimage(170, 350, &img[3]);
+
 	rectangle(100, 420, 150, 470);
+	putimage(100, 420, &img[3]);
+
 }
 //*******************************************************
 
 //***************显示飞行物位置,判断触边界,碰到则停止*****************
-void show_pos(void)
+void draw_pos(void)
 {
 	draw_background();
 	if ((py < 5) || (py > 475)) //碰到上下边界
@@ -58,5 +78,14 @@ void show_pos(void)
 	setcolor(GREEN);
 	putimage(px - 10, py - 10, &img[0]);
 	circle(px, py, radius);      //刷新显示
+}
+//********************************************************************
+
+//************************* 擦除飞行物 *******************************
+void erase_pos(void)
+{
+	setcolor(BLACK);
+	//circle(px, py, radius);
+	rectangle(px, py, px + 10, py + 10);
 }
 //********************************************************************

@@ -16,6 +16,9 @@ int    t = 1;               //显示更新时间(ms)
 
 
 
+#define    speed_max   3      //最大限速
+
+
 
 //************************* 输入模式选择 *************************
 int choose_input(void)
@@ -60,19 +63,20 @@ void contral_input(int flag)
 		//******* 支持esc退出，空格急停  *******
 		if (_kbhit())                     
 		{
-			if (_getch() == 27)  esc=1;
+			if (_getch() == 27)  esc = 1;
 			else if (_getch() == 32)
 			{
 				vx = 0;
-				vy = 0;                          
+				vy = 0;
 			}
+			else ;
 		}
 		//**************************************
 
 		if (MouseHit())//左键按下触发
 		{
 			MOUSEMSG m = GetMouseMsg();
-			draw_button();
+		
 			switch (m.uMsg)
 			{
 			case WM_LBUTTONDOWN:
@@ -123,38 +127,33 @@ void contral_input(int flag)
 
 
 
-//************************* 擦除飞行物 *******************************
-void erase_pos(void)
-{
-	setcolor(BLACK);
-	//circle(px, py, radius);
-	rectangle(px,py,px+10,py+10);
-}
-//********************************************************************
 
-//***************  更新速度，如果超出10像素/帧则限速  ****************
-void update_speed(void)
+
+//***************  更新速度，如果超出5像素/帧则限速  ****************
+void limit_speed(void)
 {
-	if (vy >= -10 && vx >= -10 && vx <= 10 && vy <= 10)
+	if (vy >= -speed_max && vx >= -speed_max && vx <= speed_max && vy <= speed_max)
 	{
 		;
 	}
-	else if(vx <= -10)
-	
+    if(vx < - speed_max)
 	{
-		vx = -10;
-		if (vy <= -10)
-			vy = -10;
-		else if (vy >= 10)
-			vy = 10;
+		vx = -speed_max;	
 	}
-	else if (vy <= -10)
+
+    if (vx > speed_max)
 	{
-		vy = -10;
-		if (vx <= -10)
-			vx = -10;
-		else if (vx >= 10)
-			vx = 10;
+		vx = speed_max;
+	}
+
+	if (vy < -speed_max)
+	{
+		vy = -speed_max;
+	}
+
+    if (vy > speed_max)
+	{
+		vy = speed_max;
 	}
 
 }

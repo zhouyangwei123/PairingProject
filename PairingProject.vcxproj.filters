@@ -51,5 +51,16 @@
     <Image Include="img\migong1.jpg">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="img\障碍物.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="img\按钮.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jpg4.bin">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

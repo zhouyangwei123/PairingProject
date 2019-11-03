@@ -140,6 +140,11 @@
     <Image Include="img\background.jpg" />
     <Image Include="img\head.jpg" />
     <Image Include="img\migong1.jpg" />
+    <Image Include="img\按钮.jpg" />
+    <Image Include="img\障碍物.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jpg4.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
