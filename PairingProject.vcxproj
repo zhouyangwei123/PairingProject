@@ -126,10 +126,12 @@
   <ItemGroup>
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Painting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
     <ClInclude Include="resource1.h" />
+    <ClInclude Include="Painting.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Pairing_Project1.rc" />

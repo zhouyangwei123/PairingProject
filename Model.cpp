@@ -1,134 +1,69 @@
+#include <stdio.h>
+#include <conio.h>
 #include <graphics.h>
 #include "math.h"
 #include "Model.h"
-#include<stdio.h>
-#include <conio.h>
+#include "Painting.h"
 
 u16    px = 30;
 u16    py = 30;            //飞行物位置
 int    vx = 0;              //速度横分量
 int    vy = 0;              //速度纵分量
 int     g = 0;              //重力加速度
-int    speed_val = 1;             //单次操作速度改变
-double  k = 0.000001;              //阻力系数
+int    speed_val = 1;       //单次操作速度改变
+double  k = 0.000001;       //阻力系数
 int    t = 1;              //显示更新时间(ms)
 u16    radius = 10;
-IMAGE img;
-
-//显示飞行物位置,判断触边界
-void show_pos(void)
-{
-	
-    if(( py<10 ) || ( py>470 )) //碰到上下边界
-	{
-		vy = 0;
-	}
-    if ((px < 10) || (px > 630)) //碰到左右边界
-	{
-		vx = 0;
-	}
-	
-	setcolor(GREEN);
-	putimage(px - 10, py - 10, &img);
-	circle(px, py, radius);      //刷新显示
 
 
-}
-//擦除飞行物
-void erase_pos(void)
-{
-	setcolor(BLACK);
-	circle(px, py, radius);
-	clearrectangle(px,py,px+10,py+10);
-}
 
-//更新速度，如果超出5像素/帧则停止
-void update_speed(void)
-{
-	if (vy >= -10 && vx >= -10 && vx <= 10 && vy <= 10)
-	{
-
-		/*
-		if (vx >= 0)
-		{
-			vx -= vx * k;
-		}
-		else if (vx < 0)
-		{
-			vx += vx * k;
-		}
-		if (vy >= 0)
-		{
-			vy -= vy * k;
-		}
-		else if (vy < 0)
-		{
-			vy += vy * k;
-		}
-		*/
-
-	}
-	else if(vx <= -10)
-	
-	{
-		vx = -10;
-		if (vy <= -10)
-			vy = -10;
-		else if (vy >= 10)
-			vy = 10;
-	}
-	else if (vy <= -10)
-	{
-		vy = -10;
-		if (vx <= -10)
-			vx = -10;
-		else if (vx >= 10)
-			vx = 10;
-	}
-
-}
-
-//按速度更新位置坐标
-void change_pos(void)
-{
-	px += vx * t;
-	py += vy * t;
-}
-
-//输入模式选择
+//************************* 输入模式选择 *************************
 int choose_input(void)
 {
 	int ch1 = 0;
 	int ch2 = 0;
-	char s1[] = "press M choose mouse contral ";
-	char s2[] = "press K choose keyboard contral";
-	outtextxy(240, 200, s1);
-	outtextxy(230, 260, s2);
-	
+	char s1[] = "press M choose mouse contral (click button)  ";
+	char s2[] = "press K choose keyboard contral (W A S D)";
+	outtextxy(190, 200, s1);
+	outtextxy(190, 260, s2);
+
 	while (1)
 	{
 		ch1 = _getch();
 		if (ch1 == 77 || ch1 == 109)    //if input M or m
 		{
-			clearrectangle(230,250,300,250);
+			clearrectangle(230, 250, 300, 250);
 			return 1;
 		}
-		else if(ch1 == 75|| ch1 == 107 ) //if input K or k
+		else if (ch1 == 75 || ch1 == 107) //if input K or k
 		{
 			clearrectangle(230, 250, 300, 250);
 			return 2;
 		}
+		else if (ch1 == 27)
+		{
+			esc = 1;
+			return 3;
+		}
 	}
 }
+//***************************************************************
 
-//控制模块
+//**************** 控制模块，读取鼠标或者键盘输入 ***************
+//                    鼠标左键点击按钮区域
+//                     键盘使用 W A S D 
 void contral_input(int flag)
 {
 	if (flag == 1)
 	{
+		if (_kbhit())                       //支持esc退出
+		{
+			if (_getch() == 27)  esc=1;
+		}
 		if (MouseHit())
 		{
 			MOUSEMSG m = GetMouseMsg();
+			draw_button();
 			switch (m.uMsg)
 			{
 			case WM_LBUTTONDOWN://左键按下触发
@@ -154,27 +89,86 @@ void contral_input(int flag)
 			FlushMouseMsgBuffer();
 		}
 	}
+	//**************************** 键盘 ***************************
 	else if (flag == 2)
 	{
-		if (_kbhit())
+
+		if (_kbhit())                       //检测键盘有输入才进入判断，不影响运动流畅性
 		{
 			switch (_getch())
 			{
-			case 119: vy -= speed_val; break;
-			case 115: vy += speed_val; break;
-			case 97: vx -= speed_val; break;
-			case 100: vx += speed_val; break;
+			case 27 : esc = 1 ;                     //esc退出
+			case 119: vy -= speed_val; break;       //↑
+			case 115: vy += speed_val; break;       //↓
+			case 97 : vx -= speed_val; break;       //←
+			case 100: vx += speed_val; break;       //→
 			}
 		}
 	}
 }
+   //*****************************************************************
 
-void draw_board(void)
+
+
+//***************显示飞行物位置,判断触边界,碰到则停止*****************
+void show_pos(void)
 {
-	line(160, 0, 160, 480);
-	line(480, 0, 480, 480);
-	line(160, 240, 480, 240);	rectangle(100, 280, 150, 330);
-	rectangle(30, 350, 80, 400);
-	rectangle(170, 350, 220, 400);
-	rectangle(100, 420, 150, 470);
+	
+    if(( py<5 ) || ( py>475 )) //碰到上下边界
+	{
+		vy = 0;
+	}
+    if ((px < 5) || (px > 635)) //碰到左右边界
+	{
+		vx = 0;
+	}
+	
+	setcolor(GREEN);
+	putimage(px - 10, py - 10, &img);
+	circle(px, py, radius);      //刷新显示
 }
+//********************************************************************
+//************************* 擦除飞行物 *******************************
+void erase_pos(void)
+{
+	setcolor(BLACK);
+	//circle(px, py, radius);
+	rectangle(px,py,px+10,py+10);
+}
+//********************************************************************
+
+//***************  更新速度，如果超出10像素/帧则停止  ****************
+void update_speed(void)
+{
+	if (vy >= -10 && vx >= -10 && vx <= 10 && vy <= 10)
+	{
+		;
+	}
+	else if(vx <= -10)
+	
+	{
+		vx = -10;
+		if (vy <= -10)
+			vy = -10;
+		else if (vy >= 10)
+			vy = 10;
+	}
+	else if (vy <= -10)
+	{
+		vy = -10;
+		if (vx <= -10)
+			vx = -10;
+		else if (vx >= 10)
+			vx = 10;
+	}
+
+}
+//********************************************************************
+
+//************************ 按速度更新位置坐标 ************************
+void change_pos(void)
+{
+	px += vx * t;
+	py += vy * t;
+}
+//********************************************************************
