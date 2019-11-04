@@ -59,6 +59,8 @@ IDR_JPG3                jpg                     "img\\障碍物.jpg"
 
 IDR_JPG4                jpg                     "img\\按钮.jpg"
 
+IDR_JPG5                jpg                     "img\\终点.jpg"
+
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 

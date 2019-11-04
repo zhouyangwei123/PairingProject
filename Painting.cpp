@@ -1,20 +1,26 @@
 #include <stdio.h>
 #include <conio.h>
 #include <graphics.h>
+#include <stdlib.h> 
+#include <time.h>
 #include "math.h"
 #include "Model.h"
 #include "Painting.h"
 #include "resource1.h"
 
+#define block_num 10 //障碍物个数
+#define goal_num 1  //终点个数
 
 int graph_X = 640;   //画布长
 int graph_Y = 480;   //画布宽
 int radius = 10;     //碰撞半径
-
+int p_block[block_num][block_num];
+int p_goal[goal_num][goal_num];
 
 //*********************初始化背景板**********************
 void panel_init(void)
 {
+                   
 	initgraph(graph_X, graph_Y);     //初始化画布
 	setcolor(WHITE);
 	line(160, 240, 480, 240);
@@ -22,6 +28,7 @@ void panel_init(void)
 	loadimage(&img[1], _T("jpg"), MAKEINTRESOURCE(IDR_JPG2));   //背景图 img 1
 	loadimage(&img[2], _T("jpg"), MAKEINTRESOURCE(IDR_JPG3));   //障碍物 img 2
 	loadimage(&img[3], _T("jpg"), MAKEINTRESOURCE(IDR_JPG4));   //按钮   img 3
+	loadimage(&img[4], _T("jpg"), MAKEINTRESOURCE(IDR_JPG5));   //终点   img 4
 	draw_background();
 }
 //*******************************************************
@@ -29,16 +36,14 @@ void panel_init(void)
 //*********************绘制面板**************************
 void draw_background(void)
 {
-	int i;
 	int px_block = 0;
 	int py_block = 0;
+
 	putimage(0,0,&img[1]);
-	if(mod_flag == 1)
+
+	if (mod_flag == 1)  //鼠标模式下画按键
 		draw_button();
-	for (i = 0; i < 15; i++)
-	{
-		putimage(px_block + i * 50, py_block , &img[2] );
-	}
+	else;
 }
 //*******************************************************
 
@@ -69,23 +74,89 @@ void draw_pos(void)
 	if ((py < 5) || (py > 475)) //碰到上下边界
 	{
 		vy = 0;
+		gameover();
 	}
 	if ((px < 5) || (px > 635)) //碰到左右边界
 	{
 		vx = 0;
+		gameover();
 	}
 
 	setcolor(GREEN);
-	putimage(px - 10, py - 10, &img[0]);
-	circle(px, py, radius);      //刷新显示
+	putimage(px - 15, py - 15, &img[0]);
+
 }
 //********************************************************************
 
 //************************* 擦除飞行物 *******************************
 void erase_pos(void)
 {
-	setcolor(BLACK);
-	//circle(px, py, radius);
+	setcolor(BLACK); 
 	rectangle(px, py, px + 10, py + 10);
 }
 //********************************************************************
+
+//****************** 生成随机障碍物坐标存入数组  *********************
+void rand_p_block(void)
+{
+	int i,j;
+	srand((unsigned)time(NULL));
+		for (i = 0; i < block_num; i++)
+		{
+			p_block[0][i] = { rand() % 11 + 2 };
+			p_block[1][i] = { rand() % 8 + 2 };
+		} 
+
+		for (j = 0; j < goal_num; j++)
+		{
+			p_goal[0][j] = {13};
+			p_goal[1][j] = { rand() % 8 + 2 };
+		}
+	
+}
+//*********************** 绘制地形方块 ************************
+void draw_block_goal(void)
+{
+	int k;
+	for (k = 0; k < block_num; k++)
+	{
+		put_a_block (p_block[0][k] * 50, p_block[1][k] * 50);
+	}
+	for (k = 0; k < goal_num; k++)
+	{
+		put_a_goal(600, p_goal[1][k] * 50);
+	}
+}
+
+
+//**************  放置一个障碍物，并判断碰撞  **************
+void put_a_block(int block_x, int block_y)
+{
+	int distance1_x, distance1_y;
+	distance1_x = block_x - px;
+	distance1_y = block_y - py;
+	putimage(block_x - 25, block_y - 25, &img[2]);
+	if (((distance1_x >= -40) && (distance1_x <= 40)) && ((distance1_y >= -40) && (distance1_y <= 40)))
+	{
+		vx = 0;
+		vy = 0;
+		gameover();
+	}
+}
+//***************  放置一个终点，并判断碰撞  ***************
+void put_a_goal(int goal_x, int goal_y)
+{
+	int distance2_x, distance2_y;
+	distance2_x = goal_x - px;
+	distance2_y = goal_y - py;
+	putimage(goal_x - 25, goal_y - 25, &img[4]);
+	if (((distance2_x >= -40) && (distance2_x <= 40)) && ((distance2_y >= -40) && (distance2_y <= 40)))
+	{
+		vx = 0;
+		vy = 0;
+		win();
+	}
+}
+//**********************************************************
+
+

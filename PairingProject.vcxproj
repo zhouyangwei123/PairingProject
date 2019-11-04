@@ -31,6 +31,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -77,6 +78,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +129,7 @@
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Painting.cpp" />
+    <ClCompile Include="ReinventingTheWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
@@ -141,10 +144,12 @@
     <Image Include="img\head.jpg" />
     <Image Include="img\migong1.jpg" />
     <Image Include="img\按钮.jpg" />
+    <Image Include="img\终点.jpg" />
     <Image Include="img\障碍物.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="jpg4.bin" />
+    <None Include="jpg5.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

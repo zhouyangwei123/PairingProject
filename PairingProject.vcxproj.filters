@@ -24,6 +24,9 @@
     <ClCompile Include="Painting.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ReinventingTheWheel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h">
@@ -57,9 +60,15 @@
     <Image Include="img\按钮.jpg">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="img\终点.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="jpg4.bin">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="jpg5.bin">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

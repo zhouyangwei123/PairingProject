@@ -16,7 +16,7 @@ int  mod_flag = 0;            //控制模式标志
 
 int main()
 {
-
+	rand_p_block();               //初始化随机障碍物坐标
 
 	//********** 初始化图形窗口**********
 	panel_init();                 //面板初始化
@@ -29,6 +29,7 @@ int main()
 		limit_speed();            //检查限速
 		change_pos();             //位置改变坐标
 		draw_pos();               //位置显示刷新
+		draw_block_goal();        //生成障碍物和终点
 		Sleep(20);
 		erase_pos();              //擦除旧图片
 		

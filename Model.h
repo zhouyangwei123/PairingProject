@@ -18,5 +18,5 @@ extern int     mod_flag ;     //控制模式标志
 int   choose_input(void);
 void  limit_speed(void);
 void  change_pos(void);
-void contral_input(int);
+void  contral_input(int);
 
