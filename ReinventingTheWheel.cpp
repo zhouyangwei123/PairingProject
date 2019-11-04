@@ -18,22 +18,21 @@ void gameover(void)
 	char s2[] = "     ~ ~  SLAY  ~ ~      ";
 	outtextxy(220, 220, s1);
 	outtextxy(250, 250, s2);
-	while (getchar())
-	{
-		;
-	}
+	Sleep(3000);
+	cleardevice();//«Â∆¡
+	esc = 1;
+
 }
 //***********************************************
 
 void win(void)
 {
 	cleardevice();//«Â∆¡
-	char s1[] = "Sor ~ Not yet completed ~";
+	char s1[] = "You Won ~ but no reward ~";
 	char s2[] = "     ~ ~  SLAY  ~ ~      ";
 	outtextxy(220, 220, s1);
 	outtextxy(250, 250, s2);
-	while (getchar())
-	{
-		;
-	}
+	Sleep(3000);
+	cleardevice();//«Â∆¡
+	esc = 1;
 }

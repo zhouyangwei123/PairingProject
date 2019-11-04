@@ -3,7 +3,7 @@
 #define u16 unsigned int
 #define u8 unsigned char
 
-extern char esc ;
+extern char    esc ;
 extern u16     px;
 extern u16     py;            //飞行物位置
 extern int     vx;            //速度横分量
