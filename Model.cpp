@@ -11,8 +11,8 @@
 #include "Painting.h"
 #include "Mydefine.h"
 
-u16    px = 30;
-u16    py = 30;             //飞行物位置
+u16    px = 15;
+u16    py = 15;             //飞行物位置
 int    vx = 0;              //速度横分量
 int    vy = 0;              //速度纵分量
 int    g = 0;               //重力加速度

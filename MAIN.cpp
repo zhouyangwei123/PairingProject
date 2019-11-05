@@ -1,3 +1,5 @@
+//待解决问题--闪屏，路经检测复杂化，难度选择
+
 #include <conio.h>
 #include <graphics.h>
 #include <time.h>
@@ -42,13 +44,12 @@ int main()
 		}
 		// 关闭图形窗口，退出
 		closegraph();
-		music_flag = 1;
 		music_pause();
-		printf("\n\n~~~~天天开心~~~~");
-		while (1);
+	
 	}
 	return 0;
 }
+
 
 
 

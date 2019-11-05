@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <conio.h>
 #include <graphics.h>
@@ -64,6 +63,8 @@ void music_pause(void)
 
 //***********************************************************
 
+
+//*****************  按键扫描函数，若不为esc或P，返回按键值并更新 ch1 *****************
 int check_esc_music(void)
 {
 	int ch2 = 0;
@@ -77,6 +78,7 @@ int check_esc_music(void)
 			vx = 0;
 			vy = 0;
 		}
+    //******* 若为 P或p 则播放/暂停背景音乐*******
 		else if (ch2 == 112 || ch2 == 80)
 		{
 			if (music_flag)
@@ -96,3 +98,4 @@ int check_esc_music(void)
 	}
 	else return 0;
 }
+//***************************************************************************************
