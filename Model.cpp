@@ -9,6 +9,7 @@
 #include "math.h"
 #include "Model.h"
 #include "Painting.h"
+#include "Mydefine.h"
 
 u16    px = 30;
 u16    py = 30;             //飞行物位置
@@ -28,7 +29,7 @@ int    t = 1;               //显示更新时间(ms)
 //************************* 输入模式选择 *************************
 int choose_input(void)
 {
-	int ch1 = 0;
+
 	int ch2 = 0;
 	char s1[] = "1 : press M -- mouse contral (click button)  ";
 	char s2[] = "2 : press K -- keyboard contral (W A S D)";
@@ -40,10 +41,8 @@ int choose_input(void)
 	outtextxy(190, 320, s4);
 	while (1)
 	{
-		if (_kbhit())
+		if (check_esc_music())
 		{
-			check_esc_music();
-				ch1 = _getch();
 			if (ch1 == 77 || ch1 == 109)    //if input M or m
 			{
 				cleardevice();//清屏
@@ -59,6 +58,7 @@ int choose_input(void)
 				esc = 1;
 				return 3;
 			}
+		
 		}
 	}
 }
@@ -109,10 +109,8 @@ void contral_input(int flag)
 	//**************************** 键盘 ***************************
 	else if (flag == 2)
 	{
-		check_esc_music();
-		if (_kbhit())                       //检测键盘有输入才进入判断，不影响运动流畅性
-		{
-			switch (_getch())
+		
+			switch (check_esc_music()) //检测键盘有输入才进入判断，不影响运动流畅性
 			{
 			case 27 : esc = 1 ;                     //esc退出
 			case 119: vy -= speed_val; break;       //↑
@@ -124,7 +122,7 @@ void contral_input(int flag)
 				vy = 0;                             //急停
 	
 			} 
-		}
+	
 	}
 }
    //*****************************************************************

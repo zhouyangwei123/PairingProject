@@ -129,10 +129,11 @@
     <ClCompile Include="MAIN.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Painting.cpp" />
-    <ClCompile Include="ReinventingTheWheel.cpp" />
+    <ClCompile Include="Others.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Mydefine.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="Painting.h" />
   </ItemGroup>

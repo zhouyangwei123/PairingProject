@@ -7,6 +7,7 @@
 #include "Model.h"
 #include "Painting.h"
 #include "resource1.h"
+#include "Mydefine.h"
 
 
 int goal_num = 1;    //终点个数
@@ -20,11 +21,13 @@ int p_goal[10][10];
 //*********************初始化背景板**********************
 void panel_init(void)
 {
-	mod_flag = 0;
+	int music_flag = 1;
+	contral_mod_flag = 0;
 	esc = 0;
 	px = 30;
 	py = 30;
 
+	music_play();
 	initgraph(graph_X, graph_Y);     //初始化画布
 	setcolor(WHITE);
 	line(160, 240, 480, 240);
@@ -45,7 +48,7 @@ void draw_background(void)
 
 	putimage(0,0,&img[1]);
 
-	if (mod_flag == 1)  //鼠标模式下画按键
+	if (contral_mod_flag == 1)  //鼠标模式下画按键
 		draw_button();
 	else;
 }

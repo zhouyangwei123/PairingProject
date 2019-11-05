@@ -7,18 +7,19 @@
 #include "stdlib.h"
 #include "resource1.h"
 #include "painting.h"
+#include "Mydefine.h"
 
 #pragma comment(lib,"Winmm.lib")
 
 IMAGE   img[10];
 char esc = 0;
-int  mod_flag = 0;            //控制模式标志
+int  contral_mod_flag = 0;            //控制模式标志
 
 
 
 int main()
 {
-	music_play();
+	
 	while (1)
 	{
 		
@@ -26,26 +27,25 @@ int main()
 
 		//********** 初始化图形窗口**********
 		panel_init();                 //面板初始化
-		mod_flag = choose_input();    //控制模式选择
+		contral_mod_flag = choose_input();    //控制模式选择
 
 		//***********************************
 		while (esc == 0)
 		{
-			contral_input(mod_flag);  //读取鼠标或键盘输入，改变速度
+			contral_input(contral_mod_flag);  //读取鼠标或键盘输入，改变速度
 			limit_speed();            //检查限速
 			change_pos();             //位置改变坐标
 			draw_pos();               //位置显示刷新
 			draw_block_goal();        //生成障碍物和终点
 			Sleep(20);
-			erase_pos();              //擦除旧图片
-
 
 		}
 		// 关闭图形窗口，退出
 		closegraph();
-		music_flag = 1 ;
+		music_flag = 1;
 		music_pause();
-	
+		printf("\n\n~~~~天天开心~~~~");
+		while (1);
 	}
 	return 0;
 }
