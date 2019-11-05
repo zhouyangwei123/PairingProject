@@ -1,3 +1,8 @@
+//********************  待更新问题  *********************
+// 随机生成部分，不可以封路
+//
+//*******************************************************
+
 #include <stdio.h>
 #include <conio.h>
 #include <graphics.h>
@@ -27,27 +32,33 @@ int choose_input(void)
 	int ch2 = 0;
 	char s1[] = "1 : press M -- mouse contral (click button)  ";
 	char s2[] = "2 : press K -- keyboard contral (W A S D)";
-	char s3[] = "         tip : press SPACE -- STOP ";
+	char s3[] = "        tip1: press SPACE -- STOP ";
+	char s4[] = "        tip2: press P -- Pause Music ";
 	outtextxy(190, 170, s1);
 	outtextxy(190, 210, s2);
 	outtextxy(190, 300, s3);
+	outtextxy(190, 320, s4);
 	while (1)
 	{
-		ch1 = _getch();
-		if (ch1 == 77 || ch1 == 109)    //if input M or m
+		if (_kbhit())
 		{
-			cleardevice();//清屏
-			return 1;
-		}
-		else if (ch1 == 75 || ch1 == 107) //if input K or k
-		{
-			cleardevice();//清屏
-			return 2;
-		}
-		else if (ch1 == 27)
-		{
-			esc = 1;
-			return 3;
+			check_esc_music();
+				ch1 = _getch();
+			if (ch1 == 77 || ch1 == 109)    //if input M or m
+			{
+				cleardevice();//清屏
+				return 1;
+			}
+			else if (ch1 == 75 || ch1 == 107) //if input K or k
+			{
+				cleardevice();//清屏
+				return 2;
+			}
+			else if (ch1 == 27)
+			{
+				esc = 1;
+				return 3;
+			}
 		}
 	}
 }
@@ -61,17 +72,7 @@ void contral_input(int flag)
 	//*********************鼠标模式************************
 	if (flag == 1)
 	{
-		//******* 支持esc退出，空格急停  *******
-		if (_kbhit())                     
-		{
-			if (_getch() == 27)  esc = 1;
-			else if (_getch() == 32)
-			{
-				vx = 0;
-				vy = 0;
-			}
-			else ;
-		}
+	check_esc_music();
 		//**************************************
 
 		if (MouseHit())//左键按下触发
@@ -108,7 +109,7 @@ void contral_input(int flag)
 	//**************************** 键盘 ***************************
 	else if (flag == 2)
 	{
-
+		check_esc_music();
 		if (_kbhit())                       //检测键盘有输入才进入判断，不影响运动流畅性
 		{
 			switch (_getch())
@@ -121,15 +122,12 @@ void contral_input(int flag)
 			case 32 : 
 				vx = 0;
 				vy = 0;                             //急停
-			}
+	
+			} 
 		}
 	}
 }
    //*****************************************************************
-
-
-
-
 
 
 //***************  更新速度，如果超出5像素/帧则限速  ****************
@@ -168,4 +166,5 @@ void change_pos(void)
 	px += vx * t;
 	py += vy * t;
 }
-//********************************************************************
+//********************************************************************、
+

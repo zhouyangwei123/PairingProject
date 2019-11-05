@@ -8,6 +8,8 @@
 #include "resource1.h"
 #include "painting.h"
 
+#pragma comment(lib,"Winmm.lib")
+
 IMAGE   img[10];
 char esc = 0;
 int  mod_flag = 0;            //控制模式标志
@@ -16,8 +18,10 @@ int  mod_flag = 0;            //控制模式标志
 
 int main()
 {
+	music_play();
 	while (1)
 	{
+		
 		rand_p_block();               //初始化随机障碍物坐标
 
 		//********** 初始化图形窗口**********
@@ -39,6 +43,9 @@ int main()
 		}
 		// 关闭图形窗口，退出
 		closegraph();
+		music_flag = 1 ;
+		music_pause();
+	
 	}
 	return 0;
 }

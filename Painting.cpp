@@ -8,19 +8,18 @@
 #include "Painting.h"
 #include "resource1.h"
 
-#define block_num 10 //障碍物个数
-#define goal_num 1  //终点个数
 
+int goal_num = 1;    //终点个数
+int block_num = 10;  //障碍物个数
 int graph_X = 640;   //画布长
 int graph_Y = 480;   //画布宽
 int radius = 10;     //碰撞半径
-int p_block[block_num][block_num];
-int p_goal[goal_num][goal_num];
+int p_block[50][50];
+int p_goal[10][10];
 
 //*********************初始化背景板**********************
 void panel_init(void)
 {
-	int i,j;
 	mod_flag = 0;
 	esc = 0;
 	px = 30;

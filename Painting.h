@@ -1,7 +1,7 @@
 #pragma once
 #include <graphics.h>
 
-extern IMAGE   img[10];
+extern  IMAGE  img[10];
 
 void panel_init(void); //≥ı ºªØ±≥æ∞∞Â
 void draw_background(void); //±≥æ∞∞ÂªÊ÷∆

@@ -14,9 +14,13 @@ extern int     ay;            //垂直加速度
 extern int     t;             //显示更新时间(ms)
 extern int     radius;        //半径
 extern int     mod_flag ;     //控制模式标志
+extern int     music_flag ;    //音乐播放标志 1：播放 0：停止
 
 int   choose_input(void);
 void  limit_speed(void);
 void  change_pos(void);
 void  contral_input(int);
+void  music_play(void);
+void  music_pause(void);
+void  check_esc_music(void);
 
