@@ -20,8 +20,12 @@ int p_goal[goal_num][goal_num];
 //*********************初始化背景板**********************
 void panel_init(void)
 {
-	mod_flag = 2;
+	int i,j;
+	mod_flag = 0;
 	esc = 0;
+	px = 30;
+	py = 30;
+
 	initgraph(graph_X, graph_Y);     //初始化画布
 	setcolor(WHITE);
 	line(160, 240, 480, 240);
