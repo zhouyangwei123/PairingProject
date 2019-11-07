@@ -19,3 +19,4 @@ extern int     block_radius;  //障碍物半径
 extern int     contral_mod_flag;      //控制模式标志
 extern int     music_flag;    //音乐播放标志 1：播放 0：停止
 extern int     ch1 ;          //键盘输入量
+extern int     win_flag;      //康康你死了没

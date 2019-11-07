@@ -17,15 +17,18 @@ int graph_X = 640;   //画布长
 int graph_Y = 480;   //画布宽
 int p_block[50][50];
 int p_goal[10][10];
+int win_flag;
 
 //*********************  初始化背景板  **********************
 void panel_init(void)
 {
+
 	int music_flag = 1;
 	contral_mod_flag = 0;
 	esc = 0;
 	px = 30;
 	py = 30;
+	win_flag = 3;
 
 	music_play();
 	initgraph(graph_X, graph_Y);     //初始化画布
@@ -81,12 +84,12 @@ void draw_pos(void)
 	if ((py < 5) || (py > 475)) //碰到上下边界
 	{
 		vy = 0;
-		gameover();
+		win_flag = 0;
 	}
 	if ((px < 5) || (px > 635)) //碰到左右边界
 	{
 		vx = 0;
-		gameover();
+		win_flag = 0;
 	}
 
 	setcolor(GREEN);
@@ -136,7 +139,7 @@ int check_path(void)
 		else                   
 			return 0;
 	}
-	
+	return 10;
 }
 
 //**********************************************************************
@@ -153,6 +156,15 @@ void draw_block_goal(void)
 	{
 		put_a_goal(600, p_goal[1][k] * 50);
 	}
+
+	for (k = 3; k < 20; k++)
+	{
+		put_a_block(k*30,15);
+    }
+	for (k = 3; k < 20; k++)
+	{
+		put_a_block(k * 30, 455);
+	}
 }
 
 
@@ -167,7 +179,7 @@ void put_a_block(int block_x, int block_y)
 	{
 		vx = 0;
 		vy = 0;
-		//gameover();
+		win_flag = 0;
 	}
 }
 
@@ -182,9 +194,20 @@ void put_a_goal(int goal_x, int goal_y)
 	{
 		vx = 0;
 		vy = 0;
-		win();
+		win_flag = 1;
 	}
 }
 //**********************************************************
 
 
+//*******************  康康你死了冒  *****************
+void check_status(void)
+{
+	if (win_flag == 0)
+		gameover();
+	else if (win_flag == 1)
+		win();
+	else
+		;
+}
+//*****************************************************

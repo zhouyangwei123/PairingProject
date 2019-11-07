@@ -11,6 +11,6 @@ void  music_play(void);
 void  music_pause(void);
 void  gameover(void);
 void  win(void);
-
+void check_status();
 
 

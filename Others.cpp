@@ -13,9 +13,10 @@ int ch1 = 0;
 //**************  «Â∆¡£¨gameover  ***************
 void gameover(void)
 {
-	cleardevice();//«Â∆¡
 	char s1[] = "BIG SISTER IS WATCHING U ";
 	char s2[] = "     ~ ~  SLAY  ~ ~      ";
+
+	cleardevice();//«Â∆¡
 	outtextxy(220, 220, s1);
 	outtextxy(250, 250, s2);
 	Sleep(1000);
