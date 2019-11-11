@@ -12,3 +12,4 @@ void put_a_goal(int, int);
 void draw_block_goal(void);
 void rand_p_block(void);
 int  check_path(void);
+void countdown_timer(void);

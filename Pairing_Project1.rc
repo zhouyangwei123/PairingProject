@@ -48,33 +48,30 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// jpg
+// JPG
 //
 
-IDR_JPG1                jpg                     "img\\head.jpg"
+IDR_JPG1                JPG                     "img\\head.jpg"
 
-IDR_JPG2                jpg                     "img\\background.jpg"
+IDR_JPG2                JPG                     "img\\background.jpg"
 
-IDR_JPG3                jpg                     "img\\障碍物.jpg"
+IDR_JPG3                JPG                     "img\\障碍物.jpg"
 
-IDR_JPG4                jpg                     "img\\按钮.jpg"
+IDR_JPG4                JPG                     "img\\按钮.jpg"
 
-IDR_JPG5                jpg                     "img\\终点.jpg"
+IDR_JPG5                JPG                     "img\\终点.jpg"
+
+IDR_JPG6                JPG                     "img\\died.jpg"
+
+IDR_JPG7                JPG                     "img\\high_noon.jpg"
 
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Accelerator
+// MP3
 //
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// mp3
-//
-
-IDR_MP31                mp3                     "img\\Darkening.mp3"
+IDR_MP31                MP3                     "img\\Darkening.mp3"
 
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////

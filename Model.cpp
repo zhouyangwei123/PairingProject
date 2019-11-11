@@ -31,10 +31,14 @@ int choose_input(void)
 	char s2[] = "2 : press K -- keyboard contral (W A S D)";
 	char s3[] = "        tip1: press SPACE -- STOP ";
 	char s4[] = "        tip2: press P -- Pause Music ";
+	char s5[] = "      tip0:    U Have 15s 2  Escape   ~ ";
 	outtextxy(190, 170, s1);
 	outtextxy(190, 210, s2);
 	outtextxy(190, 300, s3);
 	outtextxy(190, 320, s4);
+	settextcolor(RED);
+	outtextxy(190, 270, s5);
+	settextcolor(WHITE);
 	while (1)
 	{
 		if (check_esc_music())

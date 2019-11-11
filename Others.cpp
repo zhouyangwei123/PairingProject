@@ -7,19 +7,33 @@
 #include "resource1.h"
 #include "Mydefine.h"
 
-int music_flag = 1;
-int ch1 = 0;
+int  music_flag = 1;
+int  ch1 = 0;
+extern char esc;                  
+int  limit_time ;          // second
+int  refresh_counter = 0;  //单帧刷新数器
 
 //**************  清屏，gameover  ***************
 void gameover(void)
 {
 	char s1[] = "BIG SISTER IS WATCHING U ";
 	char s2[] = "     ~ ~  SLAY  ~ ~      ";
+	char s3[] = "  -- IT'S HIGH NOON --   ";
 
 	cleardevice();//清屏
-	outtextxy(220, 220, s1);
-	outtextxy(250, 250, s2);
-	Sleep(1000);
+	if (refresh_counter == 0)
+	{
+		putimage(260, 100, &img[6]);
+		outtextxy(250, 260, s3);
+		outtextxy(260, 290, s2);
+	}
+	else 
+	{
+		putimage(260, 100, &img[5]);
+		outtextxy(230, 260, s1);
+		outtextxy(260, 290, s2);
+	}
+ 	Sleep(1000);
 	while (check_esc_music() == 0 )  // 按任意键重开
 	{
 		;
@@ -100,3 +114,23 @@ int check_esc_music(void)
 	else return 0;
 }
 //***************************************************************************************
+
+//***************  倒计时器  ********************
+void countdown_timer(void)
+{
+	char s1[5] ;
+	sprintf_s(s1, _T("%d"), limit_time);
+	settextcolor(WHITE);
+	outtextxy(10, 10, s1);
+	refresh_counter++;
+	if ((refresh_counter * ref_time) >= 1000) //刷新次数 * 单次刷新时间 >= 1s 
+	{
+		refresh_counter = 0;
+		if (--limit_time == 0)
+			win_flag = 0;
+		else
+			;
+	}
+	else
+		;
+}

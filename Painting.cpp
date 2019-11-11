@@ -29,6 +29,7 @@ void panel_init(void)
 	px = 30;
 	py = 30;
 	win_flag = 3;
+	limit_time = lim_time;
 
 	music_play();
 	initgraph(graph_X, graph_Y);     //初始化画布
@@ -39,6 +40,8 @@ void panel_init(void)
 	loadimage(&img[2], _T("jpg"), MAKEINTRESOURCE(IDR_JPG3));   //障碍物 img 2
 	loadimage(&img[3], _T("jpg"), MAKEINTRESOURCE(IDR_JPG4));   //按钮   img 3
 	loadimage(&img[4], _T("jpg"), MAKEINTRESOURCE(IDR_JPG5));   //终点   img 4
+	loadimage(&img[5], _T("jpg"), MAKEINTRESOURCE(IDR_JPG6));   //死亡   img 5
+	loadimage(&img[6], _T("jpg"), MAKEINTRESOURCE(IDR_JPG7));   //到时   img 6
 	draw_background();
 }
 //***********************************************************
@@ -130,7 +133,7 @@ int check_path(void)
 
 	for (i = 0; i < block_num; i++)
 	{
-		if (p_block[0][i] == i + 3) 
+		if (p_block[0][i] == i + 3)      //如果同一列障碍物多于一半，则返回1，否则返回0
 			count++;
 		else
 			;
@@ -175,7 +178,7 @@ void put_a_block(int block_x, int block_y)
 	distance1_x = block_x - px;
 	distance1_y = block_y - py;
 	putimage(block_x - block_radius, block_y - block_radius, &img[2]);
-	if ((distance1_x >= (-15 - block_radius ) ) && (distance1_x <= (15+block_radius) ) && (distance1_y >= ( -15-block_radius) ) && (distance1_y <= (15+block_radius) ))
+	if ((distance1_x >= (-12 - block_radius ) ) && (distance1_x <= (12 + block_radius) ) && (distance1_y >= ( -12 - block_radius) ) && (distance1_y <= (12 + block_radius) ))
 	{
 		vx = 0;
 		vy = 0;

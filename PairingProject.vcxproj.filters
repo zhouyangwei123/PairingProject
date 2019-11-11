@@ -66,6 +66,12 @@
     <Image Include="img\终点.jpg">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="img\died.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="img\high_noon.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="img\Darkening.mp3" />

@@ -142,7 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\background.jpg" />
+    <Image Include="img\died.jpg" />
     <Image Include="img\head.jpg" />
+    <Image Include="img\high_noon.jpg" />
     <Image Include="img\migong1.jpg" />
     <Image Include="img\按钮.jpg" />
     <Image Include="img\终点.jpg" />
