@@ -72,6 +72,12 @@
     <Image Include="img\high_noon.jpg">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="img\start.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="img\win.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="img\Darkening.mp3" />

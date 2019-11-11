@@ -65,6 +65,10 @@ IDR_JPG6                JPG                     "img\\died.jpg"
 
 IDR_JPG7                JPG                     "img\\high_noon.jpg"
 
+IDR_JPG8                JPG                     "img\\start.jpg"
+
+IDR_JPG9                JPG                     "img\\win.jpg"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

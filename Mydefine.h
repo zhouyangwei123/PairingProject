@@ -18,7 +18,7 @@ extern int     ax;            //水平加速度
 extern int     ay;            //垂直加速度
 extern int     t;             //显示更新时间(ms)
 extern int     block_radius;  //障碍物半径
-extern int     contral_mod_flag; //控制模式标志
+extern int     contral_mod_flag; //控制模式标志, 1:鼠标；2：键盘；3：esc
 extern int     music_flag;    //音乐播放标志 1：播放 0：停止
 extern int     ch1 ;          //键盘输入量
 extern int     win_flag;      //

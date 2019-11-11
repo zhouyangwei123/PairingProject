@@ -42,6 +42,9 @@ void panel_init(void)
 	loadimage(&img[4], _T("jpg"), MAKEINTRESOURCE(IDR_JPG5));   //终点   img 4
 	loadimage(&img[5], _T("jpg"), MAKEINTRESOURCE(IDR_JPG6));   //死亡   img 5
 	loadimage(&img[6], _T("jpg"), MAKEINTRESOURCE(IDR_JPG7));   //到时   img 6
+	loadimage(&img[7], _T("jpg"), MAKEINTRESOURCE(IDR_JPG8));   //开始   img 7
+	loadimage(&img[8], _T("jpg"), MAKEINTRESOURCE(IDR_JPG9));   //胜利   img 8
+
 	draw_background();
 }
 //***********************************************************
@@ -49,14 +52,21 @@ void panel_init(void)
 //*********************  绘制面板  **************************
 void draw_background(void)
 {
-	int px_block = 0;
-	int py_block = 0;
 
-	putimage(0,0,&img[1]);
 
 	if (contral_mod_flag == 1)  //鼠标模式下画按键
+	{
+		putimage(0, 0, &img[1]);
 		draw_button();
-	else;
+	}
+	else if(contral_mod_flag == 2)
+	{
+		putimage(0, 0, &img[1]);
+	}
+	else 
+	{
+		putimage(0, 0, &img[7]);
+	}
 }
 //***********************************************************
 
@@ -160,13 +170,13 @@ void draw_block_goal(void)
 		put_a_goal(600, p_goal[1][k] * 50);
 	}
 
-	for (k = 3; k < 20; k++)
+	for (k = 3; k < 19; k++)
 	{
 		put_a_block(k*30,15);
     }
-	for (k = 3; k < 20; k++)
+	for (k = 3; k < 19; k++)
 	{
-		put_a_block(k * 30, 455);
+		put_a_block(k * 30, 465);
 	}
 	countdown_timer();                //倒计时器
 }

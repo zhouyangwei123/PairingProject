@@ -146,6 +146,8 @@
     <Image Include="img\head.jpg" />
     <Image Include="img\high_noon.jpg" />
     <Image Include="img\migong1.jpg" />
+    <Image Include="img\start.jpg" />
+    <Image Include="img\win.jpg" />
     <Image Include="img\按钮.jpg" />
     <Image Include="img\终点.jpg" />
     <Image Include="img\障碍物.jpg" />

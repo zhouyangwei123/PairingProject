@@ -23,13 +23,13 @@ void gameover(void)
 	cleardevice();//清屏
 	if (refresh_counter == 0)
 	{
-		putimage(260, 100, &img[6]);
+		putimage(260, 100, &img[6]); // 到时提示
 		outtextxy(250, 260, s3);
 		outtextxy(260, 290, s2);
 	}
 	else 
 	{
-		putimage(260, 100, &img[5]);
+		putimage(260, 100, &img[5]);// 死亡提示
 		outtextxy(230, 260, s1);
 		outtextxy(260, 290, s2);
 	}
@@ -47,10 +47,11 @@ void gameover(void)
 void win(void)
 {
 	cleardevice();//清屏
-	char s1[] = "You Won ~ but no reward ~";
-	char s2[] = "     ~ ~  SLAY  ~ ~      ";
-	outtextxy(220, 220, s1);
-	outtextxy(250, 250, s2);
+	char s1[] = "       You Are Free      ";
+	char s2[] = "     (Just Temporary)    ";
+	putimage(160, 105, &img[8]); //胜利提示
+	outtextxy(250, 65, s1);
+	outtextxy(250, 85, s2);
 	Sleep(1000);
 	while (check_esc_music() == 0 )  // 按任意键重开
 	{

@@ -27,18 +27,18 @@ int choose_input(void)
 {
 
 	int ch2 = 0;
-	char s1[] = "1 : press M -- mouse contral (click button)  ";
+	char s1[] = "1 : press M -- mouse contral (click button)";
 	char s2[] = "2 : press K -- keyboard contral (W A S D)";
-	char s3[] = "        tip1: press SPACE -- STOP ";
-	char s4[] = "        tip2: press P -- Pause Music ";
-	char s5[] = "      tip0:    U Have 15s 2  Escape   ~ ";
+	char s3[] = "tip1: press SPACE -- STOP ";
+	char s4[] = "tip2: press P -- Pause Music ";
+	char s5[] = "tip0: U Have 15s To Escape ";
 	settextcolor(WHITE);
-	outtextxy(190, 170, s1);
-	outtextxy(190, 210, s2);
-	outtextxy(190, 300, s3);
-	outtextxy(190, 320, s4);
+	outtextxy(190, 180, s1);
+	outtextxy(190, 220, s2);
+	outtextxy(220, 300, s3);
+	outtextxy(220, 320, s4);
 	settextcolor(RED);
-	outtextxy(190, 270, s5);
+	outtextxy(220, 270, s5);
 	settextcolor(WHITE);
 	while (1)
 	{
