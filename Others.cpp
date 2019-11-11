@@ -118,10 +118,10 @@ int check_esc_music(void)
 //***************  倒计时器  ********************
 void countdown_timer(void)
 {
-	char s1[5] ;
-	sprintf_s(s1, _T("%d"), limit_time);
-	settextcolor(WHITE);
-	outtextxy(10, 10, s1);
+	char s[10] = { 0 };
+	sprintf_s(s, _T("%d"), limit_time);
+	settextcolor(RED);
+	outtextxy(20, 400, s);
 	refresh_counter++;
 	if ((refresh_counter * ref_time) >= 1000) //刷新次数 * 单次刷新时间 >= 1s 
 	{

@@ -168,6 +168,7 @@ void draw_block_goal(void)
 	{
 		put_a_block(k * 30, 455);
 	}
+	countdown_timer();                //µ¹¼ÆÊ±Æ÷
 }
 
 

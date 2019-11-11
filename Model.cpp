@@ -32,6 +32,7 @@ int choose_input(void)
 	char s3[] = "        tip1: press SPACE -- STOP ";
 	char s4[] = "        tip2: press P -- Pause Music ";
 	char s5[] = "      tip0:    U Have 15s 2  Escape   ~ ";
+	settextcolor(WHITE);
 	outtextxy(190, 170, s1);
 	outtextxy(190, 210, s2);
 	outtextxy(190, 300, s3);
