@@ -80,6 +80,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="img\Darkening.mp3" />
+    <Media Include="img\日月无光.wav">
+      <Filter>资源文件</Filter>
+    </Media>
   </ItemGroup>
 </Project>

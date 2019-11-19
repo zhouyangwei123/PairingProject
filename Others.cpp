@@ -1,3 +1,4 @@
+#include<windows.h>
 #include <stdio.h>
 #include <conio.h>
 #include <graphics.h>
@@ -6,6 +7,9 @@
 #include "Painting.h"
 #include "resource1.h"
 #include "Mydefine.h"
+#include<mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+using namespace std;/*不要忘了写这句话*/
 
 int  music_flag = 1;
 int  ch1 = 0;
@@ -66,13 +70,13 @@ void win(void)
 void music_play(void)
 {
 		// 打开音乐
-		mciSendString(_T("open Darkening.mp3 alias mymusic"), NULL, 0, NULL);
-		mciSendString(_T("play mymusic"), NULL, 0, NULL);
+	   PlaySound(LPCSTR(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
+		//mciSendString(_T("open Darkening.mp3 alias mymusic"), NULL, 0, NULL);
+		//mciSendString(_T("play mymusic"), NULL, 0, NULL); 
 }
 void music_pause(void)
 	{
-		mciSendString(_T("stop mymusic"), NULL, 0, NULL);
-		mciSendString(_T("close mymusic"), NULL, 0, NULL);
+	PlaySound(NULL, NULL, SND_FILENAME);
 	}
 
 
