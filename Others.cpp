@@ -14,7 +14,7 @@ using namespace std;/*不要忘了写这句话*/
 int  music_flag = 1;
 int  ch1 = 0;
 extern char esc;                  
-int  limit_time ;          // second
+ int  limit_time  ;        // second
 int  refresh_counter = 0;  //单帧刷新数器
 
 //**************  清屏，gameover  ***************
@@ -27,13 +27,13 @@ void gameover(void)
 	cleardevice();//清屏
 	if (refresh_counter == 0)
 	{
-		putimage(260, 100, &img[6]); // 到时提示
+		putimage (260, 100, &img[6]); // 到时提示
 		outtextxy(250, 260, s3);
 		outtextxy(260, 290, s2);
 	}
 	else 
 	{
-		putimage(260, 100, &img[5]);// 死亡提示
+		putimage (260, 100, &img[5]);// 死亡提示
 		outtextxy(230, 260, s1);
 		outtextxy(260, 290, s2);
 	}
@@ -71,8 +71,6 @@ void music_play(void)
 {
 		// 打开音乐
 	   PlaySound(LPCSTR(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC | SND_LOOP);
-		//mciSendString(_T("open Darkening.mp3 alias mymusic"), NULL, 0, NULL);
-		//mciSendString(_T("play mymusic"), NULL, 0, NULL); 
 }
 void music_pause(void)
 	{

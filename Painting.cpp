@@ -9,13 +9,14 @@
 #include "resource1.h"
 #include "Mydefine.h"
 
-#define  block_radius   15//block半径
-
+int lim_time = 100;
 int goal_num = 1;    //终点个数
-int block_num = 40;  //障碍物个数
-int graph_X = 640;   //画布长
-int graph_Y = 480;   //画布宽
-int p_block[50][50];
+int block_num = 100; //障碍物个数
+int block_len = 30;  //障碍物边长
+int goal_len = 50;   //终点边长
+int graph_X = 800;   //画布长
+int graph_Y = 800;   //画布宽
+int p_block[150][150];
 int p_goal[10][10];
 int win_flag;
 
@@ -34,7 +35,7 @@ void panel_init(void)
 	music_play();
 	initgraph(graph_X, graph_Y);     //初始化画布
 	setcolor(WHITE);
-	line(160, 240, 480, 240);
+	line(graph_X/4, graph_Y/2, graph_Y*3/4, graph_Y/2);
 	loadimage(&img[0], _T("jpg"), MAKEINTRESOURCE(IDR_JPG1));   //飞行物 img 0
 	loadimage(&img[1], _T("jpg"), MAKEINTRESOURCE(IDR_JPG2));   //背景图 img 1
 	loadimage(&img[2], _T("jpg"), MAKEINTRESOURCE(IDR_JPG3));   //障碍物 img 2
@@ -70,7 +71,7 @@ void draw_background(void)
 }
 //***********************************************************
 
-//**********************  绘制按钮  *************************
+//**********************  绘制按钮  *************************  #######  待改！！！  #######
 void draw_button(void)
 {
 
@@ -94,12 +95,12 @@ void draw_button(void)
 void draw_pos(void)
 {
 	draw_background();
-	if ((py < 5) || (py > 475)) //碰到上下边界
+	if ((py < 5) || (py > graph_Y - 5 )) //碰到上下边界
 	{
 		vy = 0;
 		win_flag = 0;
 	}
-	if ((px < 5) || (px > 635)) //碰到左右边界
+	if ((px < 5) || (px > graph_X - 5)) //碰到左右边界
 	{
 		vx = 0;
 		win_flag = 0;
@@ -121,14 +122,14 @@ void rand_p_block(void)
 		srand((unsigned)time(NULL));
 		for (i = 0; i < block_num; i++)
 		{
-			p_block[0][i] = { rand() % 16 + 3 };  
-			p_block[1][i] = { rand() % 13 + 2 };
+			p_block[0][i] = { rand() % (graph_X / block_len - 2) + 2 };  //计算单行/列坐标范围
+			p_block[1][i] = { rand() % (graph_Y / block_len - 2) + 2 };
 		}
 
 		for (j = 0; j < goal_num; j++)
 		{
-			p_goal[0][j] = { 13 };
-			p_goal[1][j] = { rand() % 8 + 2 };
+			p_goal[0][j] = { graph_X / block_len - 2 };
+			p_goal[1][j] = { rand() %  (graph_Y / block_len - 2)  + 2 };
 		}
 
 	} while (check_path());
@@ -139,15 +140,15 @@ void rand_p_block(void)
 int check_path(void)
 {
 	int i;
-	int count = 0;
+	int path_count = 0;
 
 	for (i = 0; i < block_num; i++)
 	{
 		if (p_block[0][i] == i + 3)      //如果同一列障碍物多于一半，则返回1，否则返回0
-			count++;
+			path_count++;
 		else
 			;
-		if (count >= block_num / 2)
+		if (path_count >= block_num / 2)
 			return 1;
 		else                   
 			return 0;
@@ -163,20 +164,20 @@ void draw_block_goal(void)
 	int k;
 	for (k = 0; k < block_num; k++)
 	{
-		put_a_block (p_block[0][k] * 30, p_block[1][k] * 30);
+		put_a_block (p_block[0][k] * block_len, p_block[1][k] * block_len);
 	}
 	for (k = 0; k < goal_num; k++)
 	{
-		put_a_goal(600, p_goal[1][k] * 50);
+		put_a_goal( graph_Y - block_len, p_goal[1][k] * goal_len);
 	}
 
-	for (k = 3; k < 19; k++)
+	for (k = 2; k < graph_X / block_len  ; k++)                   //最上边放一排障碍
 	{
-		put_a_block(k*30,15);
+		put_a_block(k * block_len, block_len/2);  
     }
-	for (k = 3; k < 19; k++)
+	for (k = 2; k < graph_X / block_len ; k++)                   //最下边放一排障碍
 	{
-		put_a_block(k * 30, 465);
+		put_a_block(k * block_len, graph_Y - block_len/2);
 	}
 	countdown_timer();                //倒计时器
 }
@@ -188,8 +189,13 @@ void put_a_block(int block_x, int block_y)
 	int distance1_x, distance1_y;
 	distance1_x = block_x - px;
 	distance1_y = block_y - py;
-	putimage(block_x - block_radius, block_y - block_radius, &img[2]);
-	if ((distance1_x >= (-12 - block_radius ) ) && (distance1_x <= (12 + block_radius) ) && (distance1_y >= ( -12 - block_radius) ) && (distance1_y <= (12 + block_radius) ))
+	putimage(block_x - block_len / 2 , block_y - block_len / 2, &img[2]);
+	if (
+		(distance1_x >= (-12 - block_len / 2) ) &&
+		(distance1_x <= ( 12 + block_len / 2) ) && 
+		(distance1_y >= (-12 - block_len / 2) ) &&
+		(distance1_y <= ( 12 + block_len / 2) )
+		)
 	{
 		vx = 0;
 		vy = 0;
@@ -203,8 +209,12 @@ void put_a_goal(int goal_x, int goal_y)
 	int distance2_x, distance2_y;
 	distance2_x = goal_x - px;
 	distance2_y = goal_y - py;
-	putimage(goal_x - 25, goal_y - 25, &img[4]);
-	if (((distance2_x >= -40) && (distance2_x <= 40)) && ((distance2_y >= -40) && (distance2_y <= 40)))
+	putimage(goal_x - goal_len / 2 , goal_y - goal_len / 2 , &img[4]);
+	//**************  判断碰撞  *****************
+	if (
+		 ((distance2_x >= - (goal_len - 10)) && ( distance2_x <= goal_len - 10 ) ) &&
+		 ((distance2_y >= - (goal_len - 10)) && ( distance2_y <= goal_len - 10 ) ) 
+		)
 	{
 		vx = 0;
 		vy = 0;
@@ -214,7 +224,7 @@ void put_a_goal(int goal_x, int goal_y)
 //**********************************************************
 
 
-//*******************  康康你死了冒  *****************
+//*******************  检测游戏结束  *****************
 void check_status(void)
 {
 	if (win_flag == 0)
